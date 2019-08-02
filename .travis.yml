@@ -3,6 +3,9 @@ language: php
 php:
   - 7.3
 cache:
+  files:
+    - ./phpunit.cache
+    - ./.php_cs.cache
   directories:
     - ./vendor/
 install:

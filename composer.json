@@ -1,0 +1,54 @@
+{
+	"name": "signpostmarv/daft-typed-object",
+	"description": "Typed Object, a simplified version of signpostmarv/daft-object",
+	"type": "library",
+	"license": "Apache-2.0",
+	"authors": [
+		{
+			"name": "SignpostMarv",
+			"email": "me@signpostmarv.name"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"SignpostMarv\\DaftTypedObject\\": "./src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"SignpostMarv\\DaftTypedObject\\": "./Tests/"
+		}
+	},
+	"config": {
+		"classmap-authoritative": true,
+		"sort-packages": true
+	},
+	"scripts": {
+		"tests": [
+			"phpunit",
+			"@static-analysis"
+		],
+		"static-analysis": [
+			"psalm --shepherd --show-info=false",
+			"phpcpd src Tests",
+			"phpmnd ./ --exclude=./phpunit/ --exclude=./vendor/ --non-zero-exit-on-violation --hint",
+			"composer-require-checker check ./composer.json",
+			"php-cs-fixer fix --verbose --dry-run"
+		]
+	},
+	"require": {
+		"php": "^7.3",
+		"ext-json": "*"
+	},
+	"require-dev": {
+		"maglnet/composer-require-checker": "^2.0",
+		"php-coveralls/php-coveralls": "^2.1",
+		"phpunit/phpunit": "^8.2",
+		"povils/phpmnd": "^2.1",
+		"psalm/plugin-phpunit": "^0.7.0",
+		"roave/security-advisories": "dev-master",
+		"sebastian/phpcpd": "^4.1",
+		"signpostmarv/php-cs-fixer-config": "^0.11.0",
+		"vimeo/psalm": "^3.4"
+	}
+}

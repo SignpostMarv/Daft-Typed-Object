@@ -1,0 +1,18 @@
+<phpunit
+	bootstrap="./vendor/autoload.php"
+	cacheResult="true"
+	cacheResultFile="./phpunit.cache"
+	resolveDependencies="true"
+	executionOrder="random"
+>
+	<testsuites>
+		<testsuite name="Daft Typed Object">
+			<directory>./Tests/</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">./src/</directory>
+		</whitelist>
+	</filter>
+</phpunit>

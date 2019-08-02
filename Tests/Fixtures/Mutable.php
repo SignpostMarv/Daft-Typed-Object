@@ -11,8 +11,8 @@ use SignpostMarv\DaftTypedObject\DaftTypedObject as Base;
 /**
 * @template-extends Base<array{id:int, name:string}>
 *
-* @property-read int $id
-* @property-read string $name
+* @property int $id
+* @property string $name
 */
 class Mutable extends Base
 {

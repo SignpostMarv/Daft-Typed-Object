@@ -10,8 +10,9 @@ use BadMethodCallException;
 
 /**
 * @template T as array<string, scalar|array|object|null>
+* @template S as array<string, scalar|null>
 *
-* @template-extends DaftTypedObject<T>
+* @template-extends DaftTypedObject<T, S>
 */
 abstract class Immutable extends DaftTypedObject
 {

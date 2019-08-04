@@ -11,6 +11,7 @@ use JsonSerializable;
 
 /**
 * @template T as array<string, scalar|array|object|null>
+* @template S as array<string, scalar|null>
 */
 abstract class DaftTypedObject implements JsonSerializable
 {
@@ -99,6 +100,8 @@ abstract class DaftTypedObject implements JsonSerializable
 
 	/**
 	* @template K as key-of<T>
+	*
+	* @return S
 	*/
 	public function jsonSerialize() : array
 	{
@@ -107,6 +110,9 @@ abstract class DaftTypedObject implements JsonSerializable
 		*/
 		$properties = static::TYPED_PROPERTIES;
 
+		/**
+		* @var S
+		*/
 		return array_combine($properties, array_map(
 			[$this, 'PropertyMapperToScalarOrNull'],
 			$properties
@@ -119,7 +125,7 @@ abstract class DaftTypedObject implements JsonSerializable
 	* @param K $_property
 	* @param T[K] $value
 	*
-	* @return scalar|null
+	* @return S[K]
 	*/
 	public static function PropertyValueToScalarOrNull(
 		string $_property,
@@ -141,6 +147,9 @@ abstract class DaftTypedObject implements JsonSerializable
 			));
 		}
 
+		/**
+		* @var S[K]
+		*/
 		return $value;
 	}
 
@@ -148,7 +157,7 @@ abstract class DaftTypedObject implements JsonSerializable
 	* @template K as key-of<T>
 	*
 	* @param K $_property
-	* @param scalar|null $value
+	* @param S[K] $value
 	*
 	* @return T[K]
 	*/
@@ -167,7 +176,7 @@ abstract class DaftTypedObject implements JsonSerializable
 	*
 	* @param K $property
 	*
-	* @return scalar|null
+	* @return S[K]
 	*/
 	protected function PropertyMapperToScalarOrNull(string $property)
 	{
@@ -176,6 +185,9 @@ abstract class DaftTypedObject implements JsonSerializable
 		*/
 		$value = $this->$property;
 
+		/**
+		* @var S[K]
+		*/
 		return static::PropertyValueToScalarOrNull(
 			(string) $property,
 			$value

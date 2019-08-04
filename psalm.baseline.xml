@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="3.4.10@c283f0877d543e7ab738d231ba6a3cdce5e1039a">
   <file src="Tests/DaftTypedObjectTest.php">
-    <InvalidArgument occurrences="1">
+    <InvalidArgument occurrences="2">
       <code>new DateTimeImmutable()</code>
+      <code>testJsonSerialize</code>
     </InvalidArgument>
   </file>
 </files>

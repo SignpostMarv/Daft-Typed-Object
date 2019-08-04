@@ -9,7 +9,9 @@ namespace SignpostMarv\DaftTypedObject\Fixtures;
 use SignpostMarv\DaftTypedObject\Immutable as Base;
 
 /**
-* @template-extends Base<array{id:int, name:string}>
+* @psalm-type DATA = array{id:int, name:string}
+*
+* @template-extends Base<DATA, DATA>
 *
 * @property-read int $id
 * @property-read string $name

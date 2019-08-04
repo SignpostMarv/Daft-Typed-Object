@@ -52,12 +52,16 @@ class DaftTypedObjectTest extends Base
 			],
 			Fixtures\MutableWithNullables::class => [
 				[
-					['id' => 1, 'name' => 'foo'],
-					['id' => 1, 'name' => 'foo'],
+					[
+						'id' => 1,
+						'name' => 'foo',
+						'date' => new DateTimeImmutable('1970-01-01'),
+					],
+					['id' => 1, 'name' => 'foo', 'date' => '1970-01-01'],
 				],
 				[
-					['id' => 1, 'name' => null],
-					['id' => 1, 'name' => null],
+					['id' => 1, 'name' => 'foo', 'date' => null],
+					['id' => 1, 'name' => 'foo', 'date' => null],
 				],
 			],
 		];
@@ -82,9 +86,13 @@ class DaftTypedObjectTest extends Base
 	/**
 	* @dataProvider dataProviderImplementations
 	*
+	* @template T as array<string, scalar|array|object|null>
+	* @template K as key-of<T>
+	* @template S as array<K, scalar|null>
+	*
 	* @param class-string<DaftTypedObject> $type
-	* @param array<string, scalar|array|object|null> $args
-	* @param array<string, scalar|null> $expected
+	* @param T $args
+	* @param S $expected
 	*/
 	public function testJsonSerialize(
 		string $type,
@@ -92,30 +100,36 @@ class DaftTypedObjectTest extends Base
 		array $expected
 	) : void {
 		/**
-		* @var array<string, scalar|null>
+		* @var S
 		*/
 		$jsonified = (new $type($args))->jsonSerialize();
 
 		static::assertSame($expected, $jsonified);
 
+		/**
+		* @var array<int, K>
+		*/
+		$properties = array_keys($jsonified);
+
 		static::assertSame(
 			$expected,
 			(new $type(array_combine(array_keys($jsonified), array_map(
 				/**
-				* @param scalar|null $value
+				* @param K $property
+				* @param S[K] $value
 				*
-				* @return scalar|array|object|null
+				* @return T[K]
 				*/
 				function (string $property, $value) use ($type) {
 					/**
-					* @var scalar|array|object|null
+					* @var T[K]
 					*/
 					return $type::PropertyScalarOrNullToValue(
-						$property,
+						(string) $property,
 						$value
 					);
 				},
-				array_keys($jsonified),
+				$properties,
 				$jsonified
 			))))->jsonSerialize()
 		);
@@ -341,6 +355,8 @@ class DaftTypedObjectTest extends Base
 			++$value;
 		} elseif (is_string($value)) {
 			$value = strrev($value);
+		} elseif ($value instanceof DateTimeImmutable) {
+			$value = $value->modify('+1 second');
 		}
 
 		$object->$property = $value;

@@ -9,7 +9,9 @@ namespace SignpostMarv\DaftTypedObject\Fixtures;
 use SignpostMarv\DaftTypedObject\DaftTypedObject as Base;
 
 /**
-* @template-extends Base<array{id:int, name:string}>
+* @psalm-type DATA = array{id:int, name:string}
+*
+* @template-extends Base<DATA, DATA>
 *
 * @property int $id
 * @property string $name

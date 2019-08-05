@@ -6,7 +6,7 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftTypedObject\Fixtures;
 
-use SignpostMarv\DaftTypedObject\DaftTypedObject as Base;
+use SignpostMarv\DaftTypedObject\AbstractDaftTypedObject as Base;
 
 /**
 * @psalm-type DATA = array{id:int, name:string}

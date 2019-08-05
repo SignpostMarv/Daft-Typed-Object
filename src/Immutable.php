@@ -12,9 +12,9 @@ use BadMethodCallException;
 * @template T as array<string, scalar|array|object|null>
 * @template S as array<string, scalar|null>
 *
-* @template-extends DaftTypedObject<T, S>
+* @template-extends AbstractDaftTypedObject<T, S>
 */
-abstract class Immutable extends DaftTypedObject
+abstract class Immutable extends AbstractDaftTypedObject
 {
 	/**
 	* @template K as key-of<T>

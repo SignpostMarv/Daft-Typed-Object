@@ -7,7 +7,7 @@ declare(strict_types=1);
 namespace SignpostMarv\DaftTypedObject\Fixtures;
 
 use DateTimeImmutable;
-use SignpostMarv\DaftTypedObject\DaftTypedObject as Base;
+use SignpostMarv\DaftTypedObject\AbstractDaftTypedObject as Base;
 
 /**
 * @template T as array{id:int, name:string, date:DateTimeImmutable|null}

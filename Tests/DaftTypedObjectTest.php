@@ -22,11 +22,11 @@ class DaftTypedObjectTest extends Base
 				'Unsupported value object given:' .
 				' %s::%s() only supports scalar and NULL'
 			),
-			DaftTypedObject::class,
+			AbstractDaftTypedObject::class,
 			'PropertyValueToScalarOrNull'
 		));
 
-		DaftTypedObject::PropertyValueToScalarOrNull(
+		AbstractDaftTypedObject::PropertyValueToScalarOrNull(
 			'foo',
 			new DateTimeImmutable()
 		);

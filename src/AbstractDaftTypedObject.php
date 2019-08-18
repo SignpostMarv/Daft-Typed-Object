@@ -22,16 +22,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	const TYPED_PROPERTIES = [];
 
 	/**
-	* @param T $data
-	*/
-	public function __construct(array $data)
-	{
-		foreach ($data as $property => $value) {
-			$this->$property = $value;
-		}
-	}
-
-	/**
 	* @template K as key-of<T>
 	*/
 	public function __toArray() : array

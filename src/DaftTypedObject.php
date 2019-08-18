@@ -20,42 +20,21 @@ interface DaftTypedObject extends JsonSerializable
 	public function __construct(array $data);
 
 	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*
-	* @return T[K]
-	*/
-	public function __get(string $property);
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	* @param T[K] $value
-	*/
-	public function __set(string $property, $value) : void;
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*/
-	public function __isset(string $property) : bool;
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*/
-	public function __unset(string $property) : void;
-
-	/**
-	* @template K as key-of<T>
-	*
 	* @return S
 	*/
 	public function jsonSerialize() : array;
+
+	/**
+	* @return S
+	*/
+	public function __toArray() : array;
+
+	/**
+	* @param S $array
+	*
+	* @return static
+	*/
+	public static function __fromArray(array $array) : DaftTypedObject;
 
 	/**
 	* @template K as key-of<T>

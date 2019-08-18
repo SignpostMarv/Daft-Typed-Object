@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.4.11@85c9b6bb442039c773120059ae35a31f8ef9d488">
+<files psalm-version="dev-master@c98c16090749aac83f8398409d86a0c22948c2b5">
   <file src="Tests/DaftTypedObjectTest.php">
-    <InvalidArgument occurrences="2">
+    <InvalidArgument occurrences="1">
       <code>new DateTimeImmutable()</code>
-      <code>testJsonSerialize</code>
     </InvalidArgument>
+  </file>
+  <file src="Tests/Fixtures/MutableWithNullables.php">
+    <MoreSpecificImplementedParamType occurrences="1">
+      <code>$data</code>
+    </MoreSpecificImplementedParamType>
   </file>
 </files>

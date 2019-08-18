@@ -12,21 +12,29 @@ use SignpostMarv\DaftTypedObject\AbstractDaftTypedObject as Base;
 * @psalm-type DATA = array{id:int, name:string}
 *
 * @template-extends Base<DATA, DATA>
-*
-* @property int $id
-* @property string $name
 */
 class Mutable extends Base
 {
 	const TYPED_PROPERTIES = ['id', 'name'];
 
 	/**
+	* @readonly
+	*
 	* @var int
 	*/
-	protected $id;
+	public $id;
 
 	/**
 	* @var string
 	*/
-	protected $name;
+	public $name;
+
+	/**
+	* @param DATA $data
+	*/
+	public function __construct(array $data)
+	{
+		$this->id = $data['id'];
+		$this->name = $data['name'];
+	}
 }

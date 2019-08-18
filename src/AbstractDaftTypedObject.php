@@ -22,11 +22,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	const TYPED_PROPERTIES = [];
 
 	/**
-	* @var array<int, key-of<T>>
-	*/
-	const TYPED_NULLABLE_PROPERTIES = [];
-
-	/**
 	* @param T $data
 	*/
 	public function __construct(array $data)
@@ -37,74 +32,17 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	}
 
 	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*
-	* @return T[K]
-	*/
-	public function __get(string $property)
-	{
-		/**
-		* @var T[K]
-		*/
-		return $this->$property;
-	}
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	* @param T[K] $value
-	*/
-	public function __set(string $property, $value) : void
-	{
-		$this->$property = $value;
-	}
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*/
-	public function __isset(string $property) : bool
-	{
-		return isset($this->$property);
-	}
-
-	/**
-	* @template K as key-of<T>
-	*
-	* @param K $property
-	*/
-	public function __unset(string $property) : void
-	{
-		/**
-		* @var array<int, key-of<T>>
-		*/
-		$nullables = static::TYPED_NULLABLE_PROPERTIES;
-
-		if ( ! in_array(
-			$property,
-			$nullables,
-			true
-		)) {
-			throw new InvalidArgumentException(sprintf(
-				'%s::$%s is not nullable!',
-				static::class,
-				$property
-			));
-		}
-
-		$this->$property = null;
-	}
-
-	/**
-	* @template K as key-of<T>
-	*
 	* @return S
 	*/
-	public function jsonSerialize() : array
+	final public function jsonSerialize() : array
+	{
+		return $this->__toArray();
+	}
+
+	/**
+	* @template K as key-of<T>
+	*/
+	public function __toArray() : array
 	{
 		/**
 		* @var array<int, K>
@@ -118,6 +56,53 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 			[$this, 'PropertyMapperToScalarOrNull'],
 			$properties
 		));
+	}
+
+	/**
+	* @template K as key-of<S>
+	*
+	* @param S $array
+	*
+	* @return static
+	*/
+	public static function __fromArray(array $array) : DaftTypedObject
+	{
+		/**
+		* @var array<int, K>
+		*/
+		$properties = array_keys($array);
+
+		/**
+		* @var array<string, scalar|array|object|null>
+		*/
+		$data = [];
+
+		foreach ($properties as $property) {
+			/**
+			* @var S[K]
+			*/
+			$scalar_or_null = $array[$property];
+
+			/**
+			* @var T[K]
+			*/
+			$value = static::PropertyScalarOrNullToValue(
+				(string) $property,
+				$scalar_or_null
+			);
+
+			$data[$property] = $value;
+		}
+
+		/**
+		* @var T
+		*/
+		$data = $data;
+
+		/**
+		* @var static
+		*/
+		return new static($data);
 	}
 
 	/**

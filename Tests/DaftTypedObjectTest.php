@@ -38,12 +38,6 @@ class DaftTypedObjectTest extends Base
 	public function dataProviderPackedImplementations() : array
 	{
 		return [
-			Fixtures\Immutable::class => [
-				[
-					['id' => 1, 'name' => 'foo'],
-					['id' => 1, 'name' => 'foo'],
-				],
-			],
 			Fixtures\Mutable::class => [
 				[
 					['id' => 1, 'name' => 'foo'],
@@ -75,6 +69,10 @@ class DaftTypedObjectTest extends Base
 		foreach (
 			$this->dataProviderPackedImplementations() as $type => $arg_sets
 		) {
+			if ( ! class_exists($type)) {
+				continue;
+			}
+
 			foreach ($arg_sets as $arg_pairs) {
 				[$args, $json] = $arg_pairs;
 
@@ -87,8 +85,7 @@ class DaftTypedObjectTest extends Base
 	* @dataProvider dataProviderImplementations
 	*
 	* @template T as array<string, scalar|array|object|null>
-	* @template K as key-of<T>
-	* @template S as array<K, scalar|null>
+	* @template S as array<string, scalar|null>
 	*
 	* @param class-string<DaftTypedObject> $type
 	* @param T $args
@@ -106,208 +103,19 @@ class DaftTypedObjectTest extends Base
 
 		static::assertSame($expected, $jsonified);
 
-		/**
-		* @var array<int, K>
-		*/
-		$properties = array_keys($jsonified);
-
 		static::assertSame(
 			$expected,
-			(new $type(array_combine(array_keys($jsonified), array_map(
-				/**
-				* @param K $property
-				* @param S[K] $value
-				*
-				* @return T[K]
-				*/
-				function (string $property, $value) use ($type) {
-					/**
-					* @var T[K]
-					*/
-					return $type::PropertyScalarOrNullToValue(
-						(string) $property,
-						$value
-					);
-				},
-				$properties,
-				$jsonified
-			))))->jsonSerialize()
-		);
-	}
-
-	/**
-	* @return array<class-string<Immutable>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
-	*/
-	final public function dataProviderImmutableImplementations(
-	) : array {
-		/**
-		* @var array<class-string<Immutable>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
-		*/
-		return array_filter(
-			$this->dataProviderPackedImplementations(),
-			/**
-			* @param class-string<DaftTypedObject> $type
-			*/
-			function (string $type) : bool {
-				return is_a($type, Immutable::class, true);
-			},
-			ARRAY_FILTER_USE_KEY
-		);
-	}
-
-	/**
-	* @return array<class-string<DaftTypedObject>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
-	*/
-	final public function dataProviderMutableImplementations(
-	) : array {
-		/**
-		* @var array<class-string<DaftTypedObject>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
-		*/
-		return array_filter(
-			$this->dataProviderPackedImplementations(),
-			/**
-			* @param class-string<DaftTypedObject> $type
-			*/
-			function (string $type) : bool {
-				return ! is_a($type, Immutable::class, true);
-			},
-			ARRAY_FILTER_USE_KEY
+			$type::__fromArray($jsonified)->jsonSerialize()
 		);
 	}
 
 	/**
 	* @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
 	*/
-	final public function dataProviderMutableImplementationsWithNonNullableProperty(
-	) : Generator {
-		foreach (
-			$this->dataProviderMutableImplementations() as $type => $arg_sets
-		) {
-			/**
-			* @var array<int, string>
-			*/
-			$non_nullable_properties = $type::TYPED_NULLABLE_PROPERTIES;
-
-			/**
-			* @var array<int, string>
-			*/
-			$properties = $type::TYPED_PROPERTIES;
-
-			foreach ($properties as $property) {
-				if ( ! in_array($property, $non_nullable_properties, true)) {
-					foreach ($arg_sets as $arg_pairs) {
-						[$args, $json] = $arg_pairs;
-
-						/**
-						* @var array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
-						*/
-						$out = [$type, $property, $args, $json];
-
-						yield $out;
-					}
-				}
-			}
-		}
-	}
-
-	/**
-	* @dataProvider dataProviderMutableImplementationsWithNonNullableProperty
-	*
-	* @param class-string<DaftTypedObject> $type
-	* @param array<string, scalar|array|object|null> $args
-	*/
-	public function testMutableUnsetFails(
-		string $type,
-		string $property,
-		array $args
-	) : void {
-		$object = new $type($args);
-
-		$this->expectException(InvalidArgumentException::class);
-		$this->expectExceptionMessage(sprintf(
-			'%1$s::$%2$s is not nullable!',
-			$type,
-			$property
-		));
-
-		unset($object->$property);
-	}
-
-	/**
-	* @return Generator<int, array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
-	*/
-	final public function dataProviderImmutableImplementationsWithProperty(
-	) : Generator {
-		foreach (
-			$this->dataProviderImmutableImplementations() as $type => $arg_sets
-		) {
-			foreach ($arg_sets as $arg_pairs) {
-				[$args, $json] = $arg_pairs;
-
-				foreach (array_keys($args) as $property) {
-					/**
-					* @var array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
-					*/
-					$out = [$type, $property, $args, $json];
-
-					yield $out;
-				}
-			}
-		}
-	}
-
-	/**
-	* @dataProvider dataProviderImmutableImplementationsWithProperty
-	*
-	* @param class-string<Immutable> $type
-	* @param array<string, scalar|array|object|null> $args
-	*/
-	public function testImmutableSetFails(
-		string $type,
-		string $property,
-		array $args
-	) : void {
-		$object = new $type($args);
-
-		$this->expectException(BadMethodCallException::class);
-		$this->expectExceptionMessage(sprintf(
-			'%1$s::$%2$s cannot be set to %3$s, instances of %1$s are immutable.',
-			$type,
-			$property,
-			var_export($object->$property, true)
-		));
-
-		$object->$property = $args[$property];
-	}
-
-	/**
-	* @dataProvider dataProviderImmutableImplementationsWithProperty
-	*
-	* @param class-string<Immutable> $type
-	*/
-	public function testImmutableUnsetFails(
-		string $type,
-		string $property
-	) : void {
-		$object = new $type([]);
-
-		$this->expectException(BadMethodCallException::class);
-		$this->expectExceptionMessage(sprintf(
-			'%1$s::$%2$s cannot be set to NULL, instances of %1$s are immutable.',
-			$type,
-			$property
-		));
-
-		unset($object->$property);
-	}
-
-	/**
-	* @return Generator<int, array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
-	*/
 	final public function dataProviderMutableImplementationsWithNonNullProperty(
 	) : Generator {
 		foreach (
-			$this->dataProviderMutableImplementations() as $type => $arg_sets
+			$this->dataProviderPackedImplementations() as $type => $arg_sets
 		) {
 			foreach ($arg_sets as $arg_pairs) {
 				[$args, $json] = $arg_pairs;
@@ -318,7 +126,7 @@ class DaftTypedObjectTest extends Base
 					}
 
 					/**
-					* @var array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
+					* @var array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
 					*/
 					$out = [
 						$type,
@@ -363,23 +171,10 @@ class DaftTypedObjectTest extends Base
 
 		$this->assertNotSame($was, $object->$property);
 		$this->assertSame($value, $object->$property);
-
-		/**
-		* @var array<int, string>
-		*/
-		$nullable_properties = $type::TYPED_NULLABLE_PROPERTIES;
-
-		if (
-			in_array($property, $nullable_properties, true) &&
-			! is_null($object->$property)
-		) {
-			unset($object->$property);
-			$this->assertNull($object->$property);
-		}
 	}
 
 	/**
-	* @return Generator<int, array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
+	* @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
 	*/
 	final public function dataProviderImplementationsWithNonNullableProperty(
 	) : Generator {
@@ -394,7 +189,7 @@ class DaftTypedObjectTest extends Base
 				}
 
 				/**
-				* @var array{0:class-string<Immutable>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
+				* @var array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
 				*/
 				$out = [
 					$type,
@@ -411,7 +206,7 @@ class DaftTypedObjectTest extends Base
 	/**
 	* @dataProvider dataProviderImplementationsWithNonNullableProperty
 	*
-	* @param class-string<Immutable> $type
+	* @param class-string<DaftTypedObject> $type
 	* @param array<string, scalar|array|object|null> $args
 	*/
 	public function testIsset(

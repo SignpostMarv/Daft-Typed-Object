@@ -14,31 +14,37 @@ use SignpostMarv\DaftTypedObject\AbstractDaftTypedObject as Base;
 * @template S as array{id:int, name:string, date:string|null}
 *
 * @template-extends Base<T, S>
-*
-* @property-read int $id
-* @property-read string $name
-* @property-read DateTimeImmutable $date
 */
 class MutableWithNullables extends Base
 {
 	const TYPED_PROPERTIES = ['id', 'name', 'date'];
 
-	const TYPED_NULLABLE_PROPERTIES = ['date'];
-
 	/**
+	* @readonly
+	*
 	* @var int
 	*/
-	protected $id;
+	public $id;
 
 	/**
 	* @var string|null
 	*/
-	protected $name;
+	public $name;
 
 	/**
 	* @var DateTimeImmutable|null
 	*/
-	protected $date;
+	public $date;
+
+	/**
+	* @param T $data
+	*/
+	public function __construct(array $data)
+	{
+		$this->id = $data['id'];
+		$this->name = $data['name'];
+		$this->date = $data['date'];
+	}
 
 	/**
 	* @template K as key-of<T>

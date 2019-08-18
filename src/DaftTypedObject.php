@@ -22,11 +22,6 @@ interface DaftTypedObject extends JsonSerializable
 	/**
 	* @return S
 	*/
-	public function jsonSerialize() : array;
-
-	/**
-	* @return S
-	*/
 	public function __toArray() : array;
 
 	/**
@@ -35,6 +30,11 @@ interface DaftTypedObject extends JsonSerializable
 	* @return static
 	*/
 	public static function __fromArray(array $array) : DaftTypedObject;
+
+	/**
+	* @return S
+	*/
+	public function jsonSerialize() : array;
 
 	/**
 	* @template K as key-of<T>

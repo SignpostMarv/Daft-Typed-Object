@@ -6,7 +6,6 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftTypedObject;
 
-use BadMethodCallException;
 use DateTimeImmutable;
 use Generator;
 use InvalidArgumentException;

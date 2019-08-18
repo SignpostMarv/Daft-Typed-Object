@@ -32,14 +32,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	}
 
 	/**
-	* @return S
-	*/
-	final public function jsonSerialize() : array
-	{
-		return $this->__toArray();
-	}
-
-	/**
 	* @template K as key-of<T>
 	*/
 	public function __toArray() : array
@@ -103,6 +95,14 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 		* @var static
 		*/
 		return new static($data);
+	}
+
+	/**
+	* @return S
+	*/
+	final public function jsonSerialize() : array
+	{
+		return $this->__toArray();
 	}
 
 	/**

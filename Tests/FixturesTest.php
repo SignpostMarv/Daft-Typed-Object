@@ -6,10 +6,7 @@ declare(strict_types=1);
 
 namespace SignpostMarv\DaftTypedObject;
 
-use BadMethodCallException;
 use DateTimeImmutable;
-use Generator;
-use InvalidArgumentException;
 use PHPUnit\Framework\TestCase as Base;
 
 class FixturesTest extends Base
@@ -24,6 +21,7 @@ class FixturesTest extends Base
 		$this->assertSame(1, $a->id);
 		$this->assertSame('foo', $a->name);
 	}
+
 	public function testMutableWithNullables() : void
 	{
 		$a = new Fixtures\MutableWithNullables([

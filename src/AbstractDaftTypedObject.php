@@ -66,10 +66,15 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 			$scalar_or_null = $array[$property];
 
 			/**
+			* @var string
+			*/
+			$property = $property;
+
+			/**
 			* @var T[K]
 			*/
 			$value = static::PropertyScalarOrNullToValue(
-				(string) $property,
+				$property,
 				$scalar_or_null
 			);
 
@@ -162,10 +167,15 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 		$value = $this->$property;
 
 		/**
+		* @var string
+		*/
+		$property = $property;
+
+		/**
 		* @var S[K]
 		*/
 		return static::PropertyValueToScalarOrNull(
-			(string) $property,
+			$property,
 			$value
 		);
 	}

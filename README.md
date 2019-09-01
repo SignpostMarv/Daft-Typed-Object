@@ -1,9 +1,9 @@
 Copyright 2019 SignpostMarv
 
 # Daft-Typed-Object
-[![Coverage Status](https://coveralls.io/repos/github/SignpostMarv/Daft-Typed-Object/badge.svg?branch=master)](https://coveralls.io/github/SignpostMarv/Daft-Typed-Object?branch=master)
-[![Build Status](https://travis-ci.org/SignpostMarv/Daft-Typed-Object.svg?branch=master)](https://travis-ci.org/SignpostMarv/Daft-Typed-Object)
-[![Type Coverage](https://shepherd.dev/github/signpostmarv/Daft-Typed-Object/coverage.svg)](https://shepherd.dev/github/signpostmarv/Daft-Typed-Object)
+[![Coverage Status](https://coveralls.io/repos/github/daft-framework/Daft-Typed-Object/badge.svg?branch=master)](https://coveralls.io/github/daft-framework/Daft-Typed-Object?branch=master)
+[![Build Status](https://travis-ci.org/daft-framework/Daft-Typed-Object.svg?branch=master)](https://travis-ci.org/daft-framework/Daft-Typed-Object)
+[![Type Coverage](https://shepherd.dev/github/daft-framework/Daft-Typed-Object/coverage.svg)](https://shepherd.dev/github/daft-framework/Daft-Typed-Object)
 
 Typed Object, a simplified version of [signpostmarv/daft-object](https://github.com/SignpostMarv/daft-object)
 

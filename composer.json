@@ -34,7 +34,7 @@
 			"phpcpd src Tests",
 			"phpmnd ./ --exclude=./phpunit/ --exclude=./vendor/ --non-zero-exit-on-violation --hint",
 			"composer-require-checker check ./composer.json",
-			"php-cs-fixer fix --verbose --dry-run"
+			"php-cs-fixer fix --verbose --dry-run --diff-format=udiff"
 		]
 	},
 	"extra": {
@@ -62,7 +62,7 @@
 		"psalm/plugin-phpunit": "^0.7.0",
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^4.1",
-		"signpostmarv/php-cs-fixer-config": "^0.12.0",
+		"signpostmarv/php-cs-fixer-config": "^0.13.0",
 		"vimeo/psalm": "^3.5"
 	}
 }

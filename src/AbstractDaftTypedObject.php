@@ -50,7 +50,7 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	public static function __fromArray(array $array) : DaftTypedObject
 	{
 		/**
-		* @var array<int, K>
+		* @var list<string>
 		*/
 		$properties = array_keys($array);
 
@@ -64,11 +64,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 			* @var S[K]
 			*/
 			$scalar_or_null = $array[$property];
-
-			/**
-			* @var string
-			*/
-			$property = $property;
 
 			/**
 			* @var T[K]

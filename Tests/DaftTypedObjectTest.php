@@ -102,6 +102,11 @@ class DaftTypedObjectTest extends Base
 
 		static::assertSame($expected, $jsonified);
 
+		/**
+		* @var array<string, scalar|null>
+		*/
+		$jsonified = $jsonified;
+
 		static::assertSame(
 			$expected,
 			$type::__fromArray($jsonified)->jsonSerialize()
@@ -124,17 +129,12 @@ class DaftTypedObjectTest extends Base
 						continue;
 					}
 
-					/**
-					* @var array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
-					*/
-					$out = [
+					yield [
 						$type,
 						$property,
 						$args,
 						$json,
 					];
-
-					yield $out;
 				}
 			}
 		}
@@ -153,9 +153,6 @@ class DaftTypedObjectTest extends Base
 	) : void {
 		$object = new $type($args);
 
-		/**
-		* @var scalar|array|object|null
-		*/
 		$was = $value = $args[$property];
 
 		if (is_numeric($value)) {
@@ -187,17 +184,12 @@ class DaftTypedObjectTest extends Base
 					continue;
 				}
 
-				/**
-				* @var array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}
-				*/
-				$out = [
+				yield [
 					$type,
 					$property,
 					$args,
 					$json,
 				];
-
-				yield $out;
 			}
 		}
 	}

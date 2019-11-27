@@ -1,7 +1,7 @@
 dist: xenial
 language: php
 php:
-  - 7.4
+  - 7.4snapshot
 cache:
   files:
     - ./phpunit.cache

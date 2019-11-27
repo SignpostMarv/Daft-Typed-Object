@@ -19,15 +19,10 @@ class Mutable extends Base
 
 	/**
 	* @readonly
-	*
-	* @var int
 	*/
-	public $id;
+	public int $id;
 
-	/**
-	* @var string
-	*/
-	public $name;
+	public string $name;
 
 	/**
 	* @param DATA $data

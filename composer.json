@@ -39,7 +39,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "0.2.x-dev"
+			"dev-master": "0.3.x-dev"
 		}
 	},
 	"conflict": {
@@ -49,7 +49,7 @@
 		"vimeo/psalm": "for static analysis & templated typehinting"
 	},
 	"require": {
-		"php": "^7.3",
+		"php": "^7.4",
 		"ext-json": "*"
 	},
 	"require-dev": {
@@ -63,6 +63,6 @@
 		"roave/security-advisories": "dev-master",
 		"sebastian/phpcpd": "^4.1",
 		"signpostmarv/php-cs-fixer-config": "^0.13.0",
-		"vimeo/psalm": "^3.5"
+		"vimeo/psalm": "^3.7"
 	}
 }

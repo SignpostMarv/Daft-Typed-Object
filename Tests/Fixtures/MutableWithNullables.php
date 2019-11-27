@@ -21,20 +21,12 @@ class MutableWithNullables extends Base
 
 	/**
 	* @readonly
-	*
-	* @var int
 	*/
-	public $id;
+	public int $id;
 
-	/**
-	* @var string|null
-	*/
-	public $name;
+	public ?string $name;
 
-	/**
-	* @var DateTimeImmutable|null
-	*/
-	public $date;
+	public ?DateTimeImmutable $date;
 
 	/**
 	* @param T $data

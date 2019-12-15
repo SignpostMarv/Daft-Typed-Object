@@ -10,6 +10,7 @@ use DateTimeImmutable;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase as Base;
+use ReflectionProperty;
 
 class DaftTypedObjectTest extends Base
 {
@@ -126,6 +127,20 @@ class DaftTypedObjectTest extends Base
 
 				foreach (array_keys($args) as $property) {
 					if (is_null($args[$property])) {
+						continue;
+					}
+
+					$property_comment = (
+						new ReflectionProperty($type, $property)
+					)->getDocComment();
+
+					if (
+						is_string($property_comment) &&
+						1 === preg_match(
+							'/\s+\* @readonly\s/',
+							$property_comment
+						)
+					) {
 						continue;
 					}
 

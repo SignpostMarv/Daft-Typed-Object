@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="3.7.0@a154191922d14dcdde8ef348520a88d735d82304">
+<files psalm-version="3.7.2@d9cae720c1af31db9ba27c2bc1fcf9b0dd092fb0">
   <file src="Tests/DaftTypedObjectTest.php">
     <InvalidArgument occurrences="1">
       <code>new DateTimeImmutable()</code>

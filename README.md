@@ -18,23 +18,20 @@ use SignpostMarv\DaftTypedObject\Immutable as Base;
 * @psalm-type DATA = array{id:int, name:string}
 *
 * @template-extends Base<DATA, DATA>
-*
-* @property-read int $id
-* @property-read string $name
 */
 class Immutable extends Base
 {
 	const TYPED_PROPERTIES = ['id', 'name'];
 
 	/**
-	* @var int
+	* @readonly
 	*/
-	protected $id;
+	public int $id;
 
 	/**
-	* @var string
+	* @readonly
 	*/
-	protected $name;
+	public string $name;
 }
 ```
 
@@ -46,23 +43,14 @@ use SignpostMarv\DaftTypedObject\DaftTypedObject as Base;
 * @psalm-type DATA = array{id:int, name:string}
 *
 * @template-extends Base<DATA, DATA>
-*
-* @property int $id
-* @property string $name
 */
 class Mutable extends Base
 {
 	const TYPED_PROPERTIES = ['id', 'name'];
 
-	/**
-	* @var int
-	*/
-	protected $id;
+	public int $id;
 
-	/**
-	* @var string
-	*/
-	protected $name;
+	public string $name;
 }
 
 ```

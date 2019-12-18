@@ -9,11 +9,6 @@
         "text": "infection.log"
     },
     "mutators": {
-        "@default": true,
-        "ProtectedVisibility": {
-            "ignore": [
-               "SignpostMarv\\DaftTypedObject\\AbstractDaftTypedObject::PropertyMapperToScalarOrNull"
-            ]
-        }
+        "@default": true
     }
 }

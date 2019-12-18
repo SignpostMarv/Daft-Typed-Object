@@ -154,7 +154,7 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	*
 	* @return S[K]
 	*/
-	protected function PropertyMapperToScalarOrNull(string $property)
+	private function PropertyMapperToScalarOrNull(string $property)
 	{
 		/**
 		* @var T[K]

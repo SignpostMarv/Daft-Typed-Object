@@ -9,6 +9,8 @@ namespace SignpostMarv\DaftTypedObject;
 use InvalidArgumentException;
 
 /**
+* @psalm-type TSCALAR = array<string, scalar|null>
+*
 * @template T as array<string, scalar|array|object|null>
 * @template S as array<string, scalar|null>
 *
@@ -23,6 +25,8 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 
 	/**
 	* @template K as key-of<T>
+	*
+	* @return S
 	*/
 	public function __toArray() : array
 	{
@@ -43,15 +47,12 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 	/**
 	* @template K as key-of<S>
 	*
-	* @param S $array
+	* @param TSCALAR $array
 	*
 	* @return static
 	*/
 	public static function __fromArray(array $array) : DaftTypedObject
 	{
-		/**
-		* @var list<string>
-		*/
 		$properties = array_keys($array);
 
 		/**

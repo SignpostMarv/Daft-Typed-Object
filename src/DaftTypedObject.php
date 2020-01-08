@@ -9,6 +9,8 @@ namespace SignpostMarv\DaftTypedObject;
 use JsonSerializable;
 
 /**
+* @psalm-type TSCALAR = array<string, scalar|null>
+*
 * @template T as array<string, scalar|array|object|null>
 * @template S as array<string, scalar|null>
 */
@@ -25,7 +27,7 @@ interface DaftTypedObject extends JsonSerializable
 	public function __toArray() : array;
 
 	/**
-	* @param S $array
+	* @param TSCALAR $array
 	*
 	* @return static
 	*/

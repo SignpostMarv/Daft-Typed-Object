@@ -14,7 +14,7 @@ use ReflectionProperty;
 
 class DaftTypedObjectTest extends Base
 {
-	public function testPropertyValueToScalarOrNullFailsWithDateTimeImmutable(
+	public function test_property_value_to_scalar_or_null_fails_with_date_time_immutable(
 	) : void {
 		$this->expectException(InvalidArgumentException::class);
 		$this->expectExceptionMessage(sprintf(
@@ -91,7 +91,7 @@ class DaftTypedObjectTest extends Base
 	* @param T $args
 	* @param S $expected
 	*/
-	public function testJsonSerialize(
+	public function test_json_serialize(
 		string $type,
 		array $args,
 		array $expected
@@ -161,7 +161,7 @@ class DaftTypedObjectTest extends Base
 	* @param class-string<DaftTypedObject> $type
 	* @param array<string, scalar|array|object|null> $args
 	*/
-	public function testMutableSetSucceeds(
+	public function test_mutable_set_succeeds(
 		string $type,
 		string $property,
 		array $args
@@ -180,8 +180,8 @@ class DaftTypedObjectTest extends Base
 
 		$object->$property = $value;
 
-		$this->assertNotSame($was, $object->$property);
-		$this->assertSame($value, $object->$property);
+		static::assertNotSame($was, $object->$property);
+		static::assertSame($value, $object->$property);
 	}
 
 	/**
@@ -215,7 +215,7 @@ class DaftTypedObjectTest extends Base
 	* @param class-string<DaftTypedObject> $type
 	* @param array<string, scalar|array|object|null> $args
 	*/
-	public function testIsset(
+	public function test_isset(
 		string $type,
 		string $property,
 		array $args

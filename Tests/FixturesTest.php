@@ -11,18 +11,18 @@ use PHPUnit\Framework\TestCase as Base;
 
 class FixturesTest extends Base
 {
-	public function testMutable() : void
+	public function test_mutable() : void
 	{
 		$a = new Fixtures\Mutable([
 			'id' => 1,
 			'name' => 'foo',
 		]);
 
-		$this->assertSame(1, $a->id);
-		$this->assertSame('foo', $a->name);
+		static::assertSame(1, $a->id);
+		static::assertSame('foo', $a->name);
 	}
 
-	public function testMutableWithNullables() : void
+	public function test_mutable_with_nullables() : void
 	{
 		$a = new Fixtures\MutableWithNullables([
 			'id' => 1,
@@ -30,9 +30,9 @@ class FixturesTest extends Base
 			'date' => null,
 		]);
 
-		$this->assertSame(1, $a->id);
-		$this->assertSame('foo', $a->name);
-		$this->assertNull($a->date);
+		static::assertSame(1, $a->id);
+		static::assertSame('foo', $a->name);
+		static::assertNull($a->date);
 
 		$b = new Fixtures\MutableWithNullables([
 			'id' => 1,
@@ -40,10 +40,10 @@ class FixturesTest extends Base
 			'date' => new DateTimeImmutable((string) date('Y-m-d', 0)),
 		]);
 
-		$this->assertSame(1, $b->id);
-		$this->assertSame('foo', $b->name);
-		$this->assertNotNull($b->date);
-		$this->assertSame('1970-01-01', $b->date->format('Y-m-d'));
-		$this->assertSame('00:00:00', $b->date->format('H:i:s'));
+		static::assertSame(1, $b->id);
+		static::assertSame('foo', $b->name);
+		static::assertNotNull($b->date);
+		static::assertSame('1970-01-01', $b->date->format('Y-m-d'));
+		static::assertSame('00:00:00', $b->date->format('H:i:s'));
 	}
 }

@@ -21,7 +21,7 @@
 	},
 	"archive": {
 		"exclude": [
-			"./Tests/"
+			"/Tests/"
 		]
 	},
 	"config": {

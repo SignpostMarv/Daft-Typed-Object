@@ -82,9 +82,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 		*/
 		$data = $data;
 
-		/**
-		* @var static
-		*/
 		return new static($data);
 	}
 
@@ -161,11 +158,6 @@ abstract class AbstractDaftTypedObject implements DaftTypedObject
 		* @var T[K]
 		*/
 		$value = $this->$property;
-
-		/**
-		* @var string
-		*/
-		$property = $property;
 
 		/**
 		* @var S[K]

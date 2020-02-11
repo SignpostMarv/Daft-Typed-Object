@@ -89,15 +89,16 @@ class MutableWithNullables extends Base
 			/** @var T[K] */
 			return new DateTimeImmutable($value);
 		}
-			/**
-			* @var S[K]
-			*/
-			$value = $value;
 
-			/** @var T[K] */
-			return parent::PropertyScalarOrNullToValue(
-				$property,
-				$value
-			);
+		/**
+		* @var S[K]
+		*/
+		$value = $value;
+
+		/** @var T[K] */
+		return parent::PropertyScalarOrNullToValue(
+			$property,
+			$value
+		);
 	}
 }

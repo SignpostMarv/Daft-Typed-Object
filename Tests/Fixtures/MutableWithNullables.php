@@ -65,7 +65,7 @@ class MutableWithNullables extends Base
 		/**
 		* @var S[K]
 		*/
-		return parent::PropertyValueToScalarOrNull((string) $property, $value);
+		return parent::PropertyValueToScalarOrNull($property, $value);
 	}
 
 	/**
@@ -97,7 +97,7 @@ class MutableWithNullables extends Base
 			* @var T[K]
 			*/
 			$out = parent::PropertyScalarOrNullToValue(
-				(string) $property,
+				$property,
 				$value
 			);
 		}

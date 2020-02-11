@@ -86,25 +86,18 @@ class MutableWithNullables extends Base
 		$value = $value;
 
 		if ('date' === $property && is_string($value)) {
-			$out = new DateTimeImmutable($value);
-		} else {
+			/** @var T[K] */
+			return new DateTimeImmutable($value);
+		}
 			/**
 			* @var S[K]
 			*/
 			$value = $value;
 
-			/**
-			* @var T[K]
-			*/
-			$out = parent::PropertyScalarOrNullToValue(
+			/** @var T[K] */
+			return parent::PropertyScalarOrNullToValue(
 				$property,
 				$value
 			);
-		}
-
-		/**
-		* @var T[K]
-		*/
-		return $out;
 	}
 }

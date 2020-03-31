@@ -5,4 +5,9 @@
       <code>new DateTimeImmutable()</code>
     </InvalidArgument>
   </file>
+  <file src="src/AbstractDaftTypedObject.php">
+    <InvalidArgument occurrences="1">
+      <code>$data</code>
+    </InvalidArgument>
+  </file>
 </files>

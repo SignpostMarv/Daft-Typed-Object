@@ -33,8 +33,8 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @return array<class-string<DaftTypedObject>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
-	*/
+	 * @return array<class-string<DaftTypedObject>, array<int, array{0:array<string, scalar|array|object|null>, 1:array<string, scalar|null>}>>
+	 */
 	public function dataProviderPackedImplementations() : array
 	{
 		return [
@@ -62,8 +62,8 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @return Generator<int, array{0:class-string<DaftTypedObject>, 1:array<string, scalar|array|object|null>, 2:array<string, scalar|null>}, mixed, void>
-	*/
+	 * @return Generator<int, array{0:class-string<DaftTypedObject>, 1:array<string, scalar|array|object|null>, 2:array<string, scalar|null>}, mixed, void>
+	 */
 	public function dataProviderImplementations() : Generator
 	{
 		foreach (
@@ -82,30 +82,30 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderImplementations
-	*
-	* @template T as array<string, scalar|array|object|null>
-	* @template S as array<string, scalar|null>
-	*
-	* @param class-string<DaftTypedObject> $type
-	* @param T $args
-	* @param S $expected
-	*/
+	 * @dataProvider dataProviderImplementations
+	 *
+	 * @template T as array<string, scalar|array|object|null>
+	 * @template S as array<string, scalar|null>
+	 *
+	 * @param class-string<DaftTypedObject> $type
+	 * @param T $args
+	 * @param S $expected
+	 */
 	public function test_json_serialize(
 		string $type,
 		array $args,
 		array $expected
 	) : void {
 		/**
-		* @var S
-		*/
+		 * @var S
+		 */
 		$jsonified = (new $type($args))->jsonSerialize();
 
 		static::assertSame($expected, $jsonified);
 
 		/**
-		* @var array<string, scalar|null>
-		*/
+		 * @var array<string, scalar|null>
+		 */
 		$jsonified = $jsonified;
 
 		static::assertSame(
@@ -115,8 +115,8 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
-	*/
+	 * @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
+	 */
 	final public function dataProviderMutableImplementationsWithNonNullProperty(
 	) : Generator {
 		foreach (
@@ -156,11 +156,11 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderMutableImplementationsWithNonNullProperty
-	*
-	* @param class-string<DaftTypedObject> $type
-	* @param array<string, scalar|array|object|null> $args
-	*/
+	 * @dataProvider dataProviderMutableImplementationsWithNonNullProperty
+	 *
+	 * @param class-string<DaftTypedObject> $type
+	 * @param array<string, scalar|array|object|null> $args
+	 */
 	public function test_mutable_set_succeeds(
 		string $type,
 		string $property,
@@ -185,8 +185,8 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
-	*/
+	 * @return Generator<int, array{0:class-string<DaftTypedObject>, 1:string, 2:array<string, scalar|array|object|null>, 3:array<string, scalar|null>}, mixed, void>
+	 */
 	final public function dataProviderImplementationsWithNonNullableProperty(
 	) : Generator {
 		foreach (
@@ -210,11 +210,11 @@ class DaftTypedObjectTest extends Base
 	}
 
 	/**
-	* @dataProvider dataProviderImplementationsWithNonNullableProperty
-	*
-	* @param class-string<DaftTypedObject> $type
-	* @param array<string, scalar|array|object|null> $args
-	*/
+	 * @dataProvider dataProviderImplementationsWithNonNullableProperty
+	 *
+	 * @param class-string<DaftTypedObject> $type
+	 * @param array<string, scalar|array|object|null> $args
+	 */
 	public function test_isset(
 		string $type,
 		string $property,

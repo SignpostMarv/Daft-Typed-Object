@@ -9,24 +9,24 @@ namespace SignpostMarv\DaftTypedObject\Fixtures;
 use SignpostMarv\DaftTypedObject\AbstractDaftTypedObject as Base;
 
 /**
-* @psalm-type DATA = array{id:int, name:string}
-*
-* @template-extends Base<DATA, DATA>
-*/
+ * @psalm-type DATA = array{id:int, name:string}
+ *
+ * @template-extends Base<DATA, DATA>
+ */
 class Mutable extends Base
 {
 	const TYPED_PROPERTIES = ['id', 'name'];
 
 	/**
-	* @readonly
-	*/
+	 * @readonly
+	 */
 	public int $id;
 
 	public string $name;
 
 	/**
-	* @param DATA $data
-	*/
+	 * @param DATA $data
+	 */
 	public function __construct(array $data)
 	{
 		$this->id = $data['id'];

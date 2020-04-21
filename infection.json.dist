@@ -9,6 +9,11 @@
         "text": "infection.log"
     },
     "mutators": {
-        "@default": true
+        "@default": true,
+        "CastString": {
+            "ignore": [
+                "SignpostMarv\\DaftTypedObject\\Fixtures\\MutableWithNullables"
+            ]
+        }
     }
 }
